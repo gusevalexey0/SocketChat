@@ -81,8 +81,8 @@ public class Server {
                     if (message.equals("exit"))
                         break;
                     for (Connection c : connections) {
-                        byte[] bytes = message.getBytes("UTF-8");
-                        System.out.println(new String(bytes, "UTF-8"));
+                        //byte[] bytes = message.getBytes("UTF-8");
+                        //System.out.println(new String(bytes, "UTF-8"));
                         c.out.println(nick + ": " + message);
                     }
                 }

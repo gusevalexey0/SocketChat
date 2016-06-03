@@ -54,6 +54,7 @@ public class Client {
                     message = in.readLine();
                     byte[] bytes = message.getBytes("UTF-8");
                     System.out.println(new String(bytes, "UTF-8"));
+                    System.out.println(message);
                 }
                 catch(IOException e){
                     e.printStackTrace();
