@@ -56,7 +56,7 @@ public class Server {
         Connection(Socket sock) {
             this.socket = sock;
             try {
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("UTF-8")));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("WINDOWS-1251")));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
             } catch (IOException e) {
