@@ -26,7 +26,6 @@ public class Client {
         }
         System.out.println("Enter your nickname:");
         out.println(scan.nextLine());
-
         Resender resend = new Resender();
         resend.start();
 

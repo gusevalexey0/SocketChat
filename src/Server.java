@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-
 public class Server {
     ServerSocket server;
     ArrayList<Connection> connections = new ArrayList<>();
@@ -32,6 +31,17 @@ public class Server {
             e.printStackTrace();
         }
 
+    }
+
+    public void end() {
+        try {
+            server.close();
+
+            connections.forEach(Connection::close);
+            System.exit(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -78,6 +88,23 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        public void close(){
+            try {
+                in.close();
+                out.close();
+                socket.close();
+
+                connections.remove(this);
+                if (connections.size() == 0) {
+                    Server.this.end();
+                    System.exit(0);
+                }
+            }
+            catch (Exception e) {
+                System.err.println("Threads wasn't closed");
+            }
+
         }
     }
 }
