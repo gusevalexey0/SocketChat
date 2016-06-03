@@ -4,7 +4,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 public class Client {
     Socket socket;
@@ -12,7 +14,7 @@ public class Client {
     BufferedReader in;
     String message;
 
-    Client(String ip, int port){
+    Client(String ip, int port) {
         Scanner scan = new Scanner(System.in);
         try {
             socket = new Socket(ip, port);
@@ -20,23 +22,25 @@ public class Client {
             e.printStackTrace();
         }
         try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("UTF-8")));
+
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+
+            System.out.println("Enter your nickname:");
+            out.println(scan.nextLine());
+
+            Resender resend = new Resender();
+            resend.start();
+
+            String msg = "";
+            while (!msg.equals("exit")) {
+                msg = scan.nextLine();
+                out.println(msg);
+            }
+            resend.Stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Enter your nickname:");
-        out.println(scan.nextLine());
-        Resender resend = new Resender();
-        resend.start();
-
-        String msg = "";
-        while (!msg.equals("exit")) {
-            msg = scan.nextLine();
-            out.println(msg);
-        }
-        resend.Stop();
-
     }
 
     private class Resender extends Thread {
@@ -48,7 +52,8 @@ public class Client {
             while (running) {
                 try {
                     message = in.readLine();
-                    System.out.println(message);
+                    byte[] bytes = message.getBytes("UTF-8");
+                    System.out.println(new String(bytes, "UTF-8"));
                 }
                 catch(IOException e){
                     e.printStackTrace();

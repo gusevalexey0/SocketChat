@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 
 
 public class Server {
@@ -51,12 +53,12 @@ public class Server {
         private PrintWriter out;
         private Socket socket;
 
-        private String nick = "";
+        private String nick;
 
         Connection(Socket sock) {
             this.socket = sock;
             try {
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("WINDOWS-1251")));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
             } catch (IOException e) {
@@ -79,6 +81,8 @@ public class Server {
                     if (message.equals("exit"))
                         break;
                     for (Connection c : connections) {
+                        byte[] bytes = message.getBytes("UTF-8");
+                        System.out.println(new String(bytes, "UTF-8"));
                         c.out.println(nick + ": " + message);
                     }
                 }
