@@ -12,10 +12,8 @@ public class MainProgram {
         }
         else if (args[0].equals("c")){
             while (true) {
-                System.out.println("Enter server ip:");
                 String ip = args[1];
-                System.out.println("Enter server port:");
-                int port = in.nextInt();
+                int port = Integer.parseInt(args[2]);
                 new Client(ip, port);
             }
         }

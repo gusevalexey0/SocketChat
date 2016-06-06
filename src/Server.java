@@ -14,9 +14,9 @@ public class Server {
 
     Server(int port) {
         System.out.println("Server started");
+        new Client("127.0.0.1", port);
         try {
             server = new ServerSocket(port);
-            new Client("127.0.0.1", port);
             while (true) {
                 try {
 
