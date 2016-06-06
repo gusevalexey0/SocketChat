@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
-import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.Scanner;
-import java.nio.charset.StandardCharsets;
 
 public class Client {
     Socket socket;
@@ -52,8 +49,6 @@ public class Client {
             while (running) {
                 try {
                     message = in.readLine();
-                    byte[] bytes = message.getBytes("UTF-8");
-                    System.out.println(new String(bytes, "UTF-8"));
                     System.out.println(message);
                 }
                 catch(IOException e){

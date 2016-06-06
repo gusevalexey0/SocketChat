@@ -4,10 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Base64;
 
 
 public class Server {
@@ -19,6 +16,7 @@ public class Server {
         System.out.println("Server started");
         try {
             server = new ServerSocket(port);
+            new Client("127.0.0.1", port);
             while (true) {
                 try {
 
@@ -81,8 +79,6 @@ public class Server {
                     if (message.equals("exit"))
                         break;
                     for (Connection c : connections) {
-                        //byte[] bytes = message.getBytes("UTF-8");
-                        //System.out.println(new String(bytes, "UTF-8"));
                         c.out.println(nick + ": " + message);
                     }
                 }

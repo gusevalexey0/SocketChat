@@ -6,7 +6,6 @@ public class MainProgram {
         System.out.println("Run (c)lient or (s)erver");
         if (args[0].equals("s")) {
             {
-                System.out.println("Enter server port:");
                 int port = Integer.parseInt(args[1]);
                 new Server(port);
             }
@@ -14,7 +13,7 @@ public class MainProgram {
         else if (args[0].equals("c")){
             while (true) {
                 System.out.println("Enter server ip:");
-                String ip = in.nextLine();
+                String ip = args[1];
                 System.out.println("Enter server port:");
                 int port = in.nextInt();
                 new Client(ip, port);
